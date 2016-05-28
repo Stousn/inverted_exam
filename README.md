@@ -9,7 +9,7 @@ Find the solution in the solution branch ... later
 ## Team
 - Stefan Reip :checkered_flag:
 - Simon Schrei :soccer:
-- Heli Weithaler :bowtie:
+- Heli Weithaler :guitar:
 
 ## TODO
 - Find Date-Formats in Classes Race and Track
