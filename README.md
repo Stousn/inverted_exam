@@ -12,4 +12,8 @@ Find the solution in the solution branch ... later
 - Heli Weithaler :bowtie:
 
 ## TODO
-- almost everything :stuck_out_tongue_winking_eye:
+- Find Date-Formats in Classes Race and Track
+- Implement Compete (as List?)
+- Implement DAO
+- Find fitting Database
+- and almost everything else :stuck_out_tongue_winking_eye:
