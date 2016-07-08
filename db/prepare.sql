@@ -1,26 +1,21 @@
 -- ************************************************************************************************
--- Tabellen und Views vorher wegwerfen damit das Script die Datenbank immer wieder neu macht
--- ************************************************************************************************
-DROP ALL OBJECTS;
-
--- ************************************************************************************************
 -- Tabellen erstellen und Beziehungen festlegen
 -- ************************************************************************************************
 
 -- Welche Länder gibt es
-CREATE TABLE COUNTRY(
+CREATE OR REPLACE TABLE COUNTRY(
 	ID BIGINT AUTO_INCREMENT PRIMARY KEY,
 	CODE VARCHAR(255),
 	NAME VARCHAR(255));
 
 -- Welche Städte gibt es
-CREATE TABLE CITY(
+CREATE OR REPLACE TABLE CITY(
 	ID BIGINT AUTO_INCREMENT PRIMARY KEY,
   CODE VARCHAR(255),
 	NAME VARCHAR(255));
 
 -- Welche Strecken gibt es
-CREATE TABLE TRACK(
+CREATE OR REPLACE TABLE TRACK(
 	ID BIGINT AUTO_INCREMENT PRIMARY KEY,
 	NAME VARCHAR(255),
   LENGTH VARCHAR(255),
@@ -28,7 +23,7 @@ CREATE TABLE TRACK(
   SEATS NUMBER(255));
 
 -- Welche Rennen gibt es
-CREATE TABLE RACE(
+CREATE OR REPLACE TABLE RACE(
   ID BIGINT AUTO_INCREMENT PRIMARY KEY,
   LAPS VARCHAR(255),
   START_TIME VARCHAR(255),
@@ -36,7 +31,7 @@ CREATE TABLE RACE(
   R_DATE DATE(255));
 
 -- Welche Strecken gibt es
-CREATE TABLE DRIVER(
+CREATE OR REPLACE TABLE DRIVER(
   ID BIGINT AUTO_INCREMENT PRIMARY KEY,
   FORNAME VARCHAR(255),
   LASTNAME VARCHAR(255),
@@ -44,19 +39,19 @@ CREATE TABLE DRIVER(
   WEIGHT NUMBER(255));
 
 -- Welche Teams gibt es
-CREATE TABLE TEAM(
+CREATE OR REPLACE TABLE TEAM(
   ID BIGINT AUTO_INCREMENT PRIMARY KEY,
   CODE VARCHAR(255),
   NAME VARCHAR(255));
 
 -- Welche Marken gibt es
-CREATE TABLE BRAND(
+CREATE OR REPLACE TABLE BRAND(
   ID BIGINT AUTO_INCREMENT PRIMARY KEY,
   CODE VARCHAR(255),
   NAME VARCHAR(255));
 
 -- Welche Position hat welcher Fahrer bei welchem Rennen erreicht
-CREATE TABLE RACE_TO_DRIVER(
+CREATE OR REPLACE TABLE RACE_TO_DRIVER(
   RACE_ID BIGINT NOT NULL,
   DRIVER_ID BIGINT NOT NULL,
   POSITION BIGINT NOT NULL);
@@ -74,7 +69,7 @@ ALTER TABLE RACE_TO_DRIVER ADD CONSTRAINT NO_DUPL_PD UNIQUE (RACE_ID, DRIVER_ID)
 
 
 -- ************************************************************************************************
--- Es wird an der Zeit einige Daten einzufüllen
+-- Es ist an der Zeit einige Daten einzufüllen
 -- ************************************************************************************************
 -- Alle Länder
 INSERT INTO COUNTRY (CODE, NAME) VALUES ('DE', 'GERMANY');
