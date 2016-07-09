@@ -9,6 +9,13 @@ Find the solution in the solution branch ... later
 ## Install
 - Download jdbc connector https://dev.mysql.com/downloads/connector/j/
 
+## USAGE
+- To just run it
+	- ```$ java -jar inverted_exam```
+- To also run the init script
+	- ```$ java -jar inverted_exam init```
+
+
 ## Team
 - Stefan Reip :checkered_flag:
 - Simon Schrei :soccer:
