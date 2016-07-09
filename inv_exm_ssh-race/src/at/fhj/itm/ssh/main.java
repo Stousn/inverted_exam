@@ -12,7 +12,7 @@ import at.fhj.itm.ssh.db.MySQLAccess;
 public class main {
 
 	/**
-	 * @param args
+	 * @param init to run initial script
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
@@ -20,7 +20,15 @@ public class main {
 		
 		MySQLAccess dao = new MySQLAccess();
 	    dao.readDataBase();
-
+	    
+	    
+	    //PARAM init runs init script
+	    if(args.length >0 && args[0].equals("init")) {
+	    	System.out.println("init");
+	    	dao.init();
+	    	
+	    }
 	}
+
 
 }
