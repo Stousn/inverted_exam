@@ -6,6 +6,7 @@
 # eclipse metadata
 .metadata/
 .recommenders/
+.classpath
 
 # Package Files #
 *.jar
