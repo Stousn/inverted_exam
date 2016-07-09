@@ -6,6 +6,9 @@ Java-Frontend + DB-Backend + bad performance
 
 Find the solution in the solution branch ... later
 
+## Install
+- Download jdbc connector https://dev.mysql.com/downloads/connector/j/
+
 ## Team
 - Stefan Reip :checkered_flag:
 - Simon Schrei :soccer:
