@@ -1,4 +1,4 @@
-INSERT INTO COUNTRY (`code`, `en`) VALUES
+INSERT INTO COUNTRY (`CODE`, `NAME`) VALUES
 ('AD', 'Andorra'),
 ('AE', 'United Arab Emirates'),
 ('AF', 'Afghanistan'),
