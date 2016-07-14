@@ -106,7 +106,7 @@ public class BrandDAO extends GenericSqlDAO<Brand, Integer> {
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
-			System.err.println("Door could not be found");
+			System.err.println("Brand could not be found");
 		}   
 		
 	}
@@ -124,7 +124,7 @@ public class BrandDAO extends GenericSqlDAO<Brand, Integer> {
 	        
 	        while(rs.next())
 	        {
-	        	// generation of a door object for each element
+	        	// generation of a brand object for each element
 	        	Brand b = new Brand();
 		        b.id = rs.getInt("ID");
 				b.code = rs.getString("CODE");
