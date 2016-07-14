@@ -28,7 +28,7 @@ public class BrandDAO extends GenericSqlDAO<Brand, Integer> {
 			System.err.println("Brand could not be created");
 		}     
 		
-		newInstance.id = SqlUtils.getMaxInt("DOOR", "ID");
+		newInstance.id = SqlUtils.getMaxInt("BRAND", "ID");
 		return newInstance.id;
 	}
 
