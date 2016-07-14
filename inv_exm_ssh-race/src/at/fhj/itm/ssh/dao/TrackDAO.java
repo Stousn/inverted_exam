@@ -132,7 +132,7 @@ public class TrackDAO extends GenericSqlDAO<Track, Integer> {
 	        
 	        while(rs.next())
 	        {
-	        	// generation of a brand object for each element
+	        	// generation of a track object for each element
 	        	Track t = new Track();
 	        	t.id = rs.getInt("ID");
 		        t.name = rs.getString("NAME");

@@ -135,7 +135,7 @@ public class RaceDAO extends GenericSqlDAO<Race, Integer> {
 	        
 	        while(rs.next())
 	        {
-	        	// generation of a brand object for each element
+	        	// generation of a race object for each element
 	        	Race r = new Race();
 	        	r.id = rs.getInt("ID");
 	   			r.lapCount = rs.getInt("LAPS");

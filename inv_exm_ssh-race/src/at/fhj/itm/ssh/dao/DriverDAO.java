@@ -138,7 +138,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 	        
 	        while(rs.next())
 	        {
-	        	// generation of a brand object for each element
+	        	// generation of a driver object for each element
 	        	Driver d = new Driver();
 				d.id = rs.getInt("ID");
 				d.weightInKg = rs.getInt("WEIGHT");
