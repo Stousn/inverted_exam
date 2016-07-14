@@ -21,6 +21,10 @@ public class Race {
 	}
 		
 	//METHODS
-		
+	@Override
+	public String toString() {
+		return "Race [id=" + id + ", lapCount=" + lapCount + ", track=" + track + ", startTime=" + startTime
+				+ ", duration=" + duration + ", date=" + date + "]";
+	}	
 	
 }

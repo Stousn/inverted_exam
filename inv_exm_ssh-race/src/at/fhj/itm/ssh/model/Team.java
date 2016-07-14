@@ -15,6 +15,9 @@ public class Team {
 	}
 		
 	//METHODS
-		
+	@Override
+	public String toString() {
+		return "Team [id=" + id + ", code=" + code + ", name=" + name + ", brand=" + brand + "]";
+	}	
 	
 }

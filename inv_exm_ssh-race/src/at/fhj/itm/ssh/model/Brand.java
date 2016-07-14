@@ -13,6 +13,9 @@ public class Brand {
 	}
 	
 	//METHODS
-	
+	@Override
+	public String toString() {
+		return "Brand [id=" + id + ", name=" + name + "]";
+	}
 	
 }

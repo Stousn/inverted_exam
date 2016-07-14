@@ -22,6 +22,10 @@ public class Driver {
 	}
 		
 	//METHODS
-		
+	@Override
+	public String toString() {
+		return "Driver [id=" + id + ", weightInKg=" + weightInKg + ", dob=" + dob + ", fName=" + fName + ", lName="
+				+ lName + ", team=" + team + "]";
+	}
 	
 }
