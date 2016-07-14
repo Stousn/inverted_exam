@@ -2,20 +2,25 @@ package at.fhj.itm.ssh.model;
 
 public class Brand {
 	//FIELD
-	int id;
-	String name;
+	public int id;
+	public String code;
+	public String name;
 		
 	//CONSTRUCTOR
-	public Brand(int id, String name) {
+	public Brand(int id, String code, String name) {
 		super();
 		this.id = id;
+		this.code = code;
 		this.name = name;
 	}
 	
+	public Brand() {
+	}
+
 	//METHODS
 	@Override
 	public String toString() {
-		return "Brand [id=" + id + ", name=" + name + "]";
+		return "Brand [id=" + id + ", code=" + code + ", name=" + name + "]";
 	}
 	
 }

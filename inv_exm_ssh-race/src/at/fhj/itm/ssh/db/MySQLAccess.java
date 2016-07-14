@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 public class MySQLAccess {
-	private Connection connect = null;
+	private static Connection connect = null;
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
@@ -70,8 +70,8 @@ public class MySQLAccess {
 		}
 	}
 	
-	public Connection getConnection() {
-		return this.connect;
+	public static Connection getConnection() {
+		return connect;
 	}
 	
 	
