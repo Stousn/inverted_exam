@@ -2,13 +2,13 @@ package at.fhj.itm.ssh.model;
 
 public class Track {
 	//FIELD
-	int id, seatCount;
-	double lenghtInM;
-	String name, city;
-	String fastestLap; //TODO: Find a Time format containing minutes, seconds, ... thousands.
+	public int id, seatCount, city;
+	public String lenghtInM;
+	public String name;
+	public String fastestLap; //TODO: Find a Time format containing minutes, seconds, ... thousands.
 
 	//CONSTRUCTOR
-	public Track(int id, int seatCount, double lenghtInM, String name, String city, String fastestLap) {
+	public Track(int id, int seatCount, String lenghtInM, String name, int city, String fastestLap) {
 		super();
 		this.id = id;
 		this.seatCount = seatCount;
@@ -16,6 +16,9 @@ public class Track {
 		this.name = name;
 		this.city = city;
 		this.fastestLap = fastestLap;
+	}
+	
+	public Track(){
 	}
 
 	//METHODS

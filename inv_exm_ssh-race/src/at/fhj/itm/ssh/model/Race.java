@@ -1,16 +1,13 @@
 package at.fhj.itm.ssh.model;
 
-import java.util.Date;
-
 public class Race {
 	//FIELD
-	int id, lapCount;
-	String track;
-	String startTime, duration;	//TODO: Find a time format with HH:MM
-	Date date;
+	public int id, lapCount, track;
+	public String startTime, duration;	//TODO: Find a time format with HH:MM
+	public java.sql.Date date;
 	
 	//CONSTRUCTOR
-	public Race(int id, int lapCount, String track, String startTime, String duration, Date date) {
+	public Race(int id, int lapCount, int track, String startTime, String duration, java.sql.Date date) {
 		super();
 		this.id = id;
 		this.lapCount = lapCount;
@@ -20,6 +17,9 @@ public class Race {
 		this.date = date;
 	}
 		
+	public Race() {
+	}
+
 	//METHODS
 	@Override
 	public String toString() {

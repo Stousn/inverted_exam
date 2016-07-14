@@ -1,6 +1,5 @@
 package at.fhj.itm.ssh.dao;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,8 +40,6 @@ public class BrandDAO extends GenericSqlDAO<Brand, Integer> {
 		b.code = "unknown code";
 		b.name = "unknown name";
 		
-		
-		
 		try 
 		{
 			stmt = connection.prepareStatement("SELECT * FROM BRAND WHERE ID = ?");
@@ -78,7 +75,7 @@ public class BrandDAO extends GenericSqlDAO<Brand, Integer> {
 	        
 	        if(affectedRows != 1)
 	        {
-	        	System.out.println("Something strange is going on: Brand not found or BRand not unique: " + transientObject);
+	        	System.out.println("Something strange is going on: Brand not found or Brand not unique: " + transientObject);
 	        }	 
 		} 
 		catch (SQLException e) 
@@ -100,7 +97,7 @@ public class BrandDAO extends GenericSqlDAO<Brand, Integer> {
 	        
 	        if(affectedRows != 1)
 	        {
-	        	System.out.println("Something strange is going on: BRand not found or Brand not unique: " + persistentObject);
+	        	System.out.println("Something strange is going on: Brand not found or Brand not unique: " + persistentObject);
 	        }	 
 		} 
 		catch (SQLException e) 

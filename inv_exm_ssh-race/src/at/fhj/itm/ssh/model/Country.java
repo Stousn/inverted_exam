@@ -2,8 +2,8 @@ package at.fhj.itm.ssh.model;
 
 public class Country {
 	//FIELD
-	int id;
-	String code, name;
+	public int id;
+	public String code, name;
 	
 	//CONSTRUCTOR
 	public Country(int id, String code, String name) {
@@ -11,6 +11,9 @@ public class Country {
 		this.id = id;
 		this.code = code;
 		this.name = name;
+	}
+	
+	public Country() {	
 	}
 		
 	//METHODS
