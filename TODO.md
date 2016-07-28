@@ -1,4 +1,4 @@
-#TODO and PLAN
+# TODO and PLAN
 
 ## Find Date-Formats in Classes Race and Track
 
@@ -20,3 +20,13 @@
 * duplicates (only different keys for example)
 
 ## Anything else
+
+
+# Plan: Wer macht was:
+* Stefan
+	* 20160712 DB Verbindung
+	* SQL-Skript normal: Anpassen (DONE)
+	* 20160715 SQL-Skript Big-Data
+	* 20160714 DAOs (CRUD-Funktionalitäten)
+* Heli
+* Simon

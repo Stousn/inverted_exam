@@ -1,27 +1,37 @@
 package at.fhj.itm.ssh.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Driver {
 	//FIELD
-	int id, weightInKg;
-	//int age; // ?
-	Date dob;
-	String fName, lName, team;
+	public int id;
+	public int weightInKg;
+	public Date dob;
+	public String fName;
+	public String lName; 
+	public int country, team;
 	//Sting brand; // ?
 		
 	//CONSTRUCTOR
-	public Driver(int id, int weightInKg, Date dob, String fName, String lName, String team) {
+	public Driver(int id, int weightInKg, Date dob, String fName, String lName, int country, int team) {
 		super();
 		this.id = id;
 		this.weightInKg = weightInKg;
 		this.dob = dob;
 		this.fName = fName;
 		this.lName = lName;
+		this.country = country;
 		this.team = team;
+	}
+	
+	public Driver() {
 	}
 		
 	//METHODS
-		
+	@Override
+	public String toString() {
+		return "Driver [id=" + id + ", weightInKg=" + weightInKg + ", dob=" + dob + ", fName=" + fName + ", lName="
+				+ lName + ", team=" + team + "]";
+	}
 	
 }

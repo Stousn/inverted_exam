@@ -1,24 +1,35 @@
 package at.fhj.itm.ssh.model;
 
+import java.time.LocalDateTime;
+
 public class Track {
 	//FIELD
-	int id, seatCount;
-	double lenghtInM;
-	String name, city;
-	String fastestLap; //TODO: Find a Time format containing minutes, seconds, ... thousands.
-	
+	public int id;
+	public int seatCount;
+	public int city;
+	public int lenghtInM;
+	public String name;
+	public LocalDateTime fastestLap;
+
 	//CONSTRUCTOR
-	public Track(int id, int seatCount, double lenghtInM, String name, String city, String fastestLap) {
+	public Track(int id, String name, int lenghtInM, LocalDateTime fastestLap, int seatCount, int cityId) {
 		super();
 		this.id = id;
 		this.seatCount = seatCount;
 		this.lenghtInM = lenghtInM;
 		this.name = name;
-		this.city = city;
+		this.city = cityId;
 		this.fastestLap = fastestLap;
 	}
-		
-	//METHODS
-		
 	
+	public Track(){
+	}
+
+	//METHODS
+	@Override
+	public String toString() {
+		return "Track [id=" + id + ", seatCount=" + seatCount + ", lenghtInM=" + lenghtInM + ", name=" + name
+				+ ", city=" + city + ", fastestLap=" + fastestLap + "]";
+	}	
+
 }
