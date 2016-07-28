@@ -1,19 +1,19 @@
 package at.fhj.itm.ssh.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Driver {
 	//FIELD
 	public int id;
 	public int weightInKg;
-	public Date dob;
+	public LocalDate dob;
 	public String fName;
 	public String lName; 
 	public int country, team;
 	//Sting brand; // ?
 		
 	//CONSTRUCTOR
-	public Driver(int id, int weightInKg, Date dob, String fName, String lName, int country, int team) {
+	public Driver(int id, int weightInKg, LocalDate dob, String fName, String lName, int country, int team) {
 		super();
 		this.id = id;
 		this.weightInKg = weightInKg;

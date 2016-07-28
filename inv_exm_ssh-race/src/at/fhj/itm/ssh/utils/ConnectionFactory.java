@@ -51,22 +51,6 @@ public class ConnectionFactory {
 			System.exit(3);
 		}
 
-		if(app_initscript != null){
-			try(InputStream in = ConnectionFactory.class.getClassLoader().getResourceAsStream(app_initscript)){
-				ScriptRunner s = new ScriptRunner(ConnectionFactory.getConnection(), true, true);
-				s.runScript(new InputStreamReader(in));
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.err.println("application.initscript not found");
-				System.exit(3);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				System.err.println("application.initscript caused an error");
-				System.exit(4);
-			}
-		}
-		
-		runScriptsFromScriptFolder();
 	}
 
 	public static Connection getConnection(){

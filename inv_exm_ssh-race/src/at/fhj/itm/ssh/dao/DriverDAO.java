@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 			stmt = connection.prepareStatement("INSERT INTO DRIVER (FORNAME, LASTNAME, DOB, WEIGHT, FK_Country_ID, FK_Team_ID) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1,newInstance.fName);
 			stmt.setString(2,newInstance.lName);
-			stmt.setDate(3,newInstance.dob);
+			stmt.setDate(3,Date.valueOf(newInstance.dob));
 			stmt.setInt(4,newInstance.weightInKg);
 			stmt.setInt(5,newInstance.country);
 			stmt.setInt(6,newInstance.team);
@@ -46,7 +47,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		
 		d.id = -1;
 		d.weightInKg = -1;
-		d.dob = new Date(0);
+		d.dob = null;
 		d.fName = "Unbekannt";
 		d.lName = "Unbekannt";
 		d.team = 0;
@@ -62,7 +63,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 	        // Mapping
 	        d.id = rs.getInt("ID");
 			d.weightInKg = rs.getInt("WEIGHT");
-			d.dob = rs.getDate("DOB");
+			d.dob = rs.getDate("DOB").toLocalDate();
 			d.fName = rs.getString("FORNAME");
 			d.lName = rs.getString("LASTNAME");
 			d.team = rs.getInt("FK_Team_ID");
@@ -85,7 +86,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 			stmt = connection.prepareStatement("UPDATE DRIVER SET FORNAME = ?, LASTNAME = ?, DOB = ?, WEIGHT = ?, FK_Country_ID = ?, FK_Team_ID = ? where ID = ?");
 			stmt.setString(1,transientObject.fName);
 			stmt.setString(2,transientObject.lName);
-			stmt.setDate(3,transientObject.dob);
+			stmt.setDate(3,Date.valueOf(transientObject.dob));
 			stmt.setInt(4,transientObject.weightInKg);
 			stmt.setInt(5,transientObject.country);
 			stmt.setInt(6,transientObject.team);
@@ -144,7 +145,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 	        	Driver d = new Driver();
 				d.id = rs.getInt("ID");
 				d.weightInKg = rs.getInt("WEIGHT");
-				d.dob = rs.getDate("DOB");
+				d.dob = rs.getDate("DOB").toLocalDate();
 				d.fName = rs.getString("FORNAME");
 				d.lName = rs.getString("LASTNAME");
 				d.team = rs.getInt("FK_Team_ID");
@@ -162,5 +163,135 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		
 		return driverList;
 	}
+	
+	public String readForname(Integer id) {
+		PreparedStatement stmt;
+		String forename = "unbekannt";
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT FORNAME FROM DRIVER WHERE ID = ?");
+			stmt.setInt(1, id);
+	        ResultSet rs = stmt.executeQuery();
+	        rs.first();
+	        
+	        // Mapping
+			forename = rs.getString("FORNAME");
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("Could not read Driver (" + id +")");
+		}     
+		
+		return forename;
+	}
+	
+	public String readLastname(Integer id) {
+		PreparedStatement stmt;
+		String lastname = "unbekannt";
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT LASTNAME FROM DRIVER WHERE ID = ?");
+			stmt.setInt(1, id);
+	        ResultSet rs = stmt.executeQuery();
+	        rs.first();
+	        
+	        // Mapping
+			lastname = rs.getString("LASTNAME");
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("Could not read Driver (" + id +")");
+		}     
+		
+		return lastname;
+	}
+	
+	public LocalDate readDOB(Integer id) {
+		PreparedStatement stmt;
+		LocalDate dob = null;
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT DOB FROM DRIVER WHERE ID = ?");
+			stmt.setInt(1, id);
+	        ResultSet rs = stmt.executeQuery();
+	        rs.first();
+	        
+	        // Mapping
+			dob = rs.getDate("DOB").toLocalDate();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("Could not read Driver (" + id +")");
+		}     
+		
+		return dob;
+	}
+	
+	public int readWeight(Integer id) {
+		PreparedStatement stmt;
+		int weight = 0;
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT WEIGHT FROM DRIVER WHERE ID = ?");
+			stmt.setInt(1, id);
+	        ResultSet rs = stmt.executeQuery();
+	        rs.first();
+	        
+	        // Mapping
+			weight = rs.getInt("WEIGHT");
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("Could not read Driver (" + id +")");
+		}     
+		
+		return weight;
+	}
+	
+	public Driver readHeaviest() {
+		PreparedStatement stmt;
+		Driver d = new Driver();
+		
+		d.id = -1;
+		d.weightInKg = -1;
+		d.dob = null;
+		d.fName = "Unbekannt";
+		d.lName = "Unbekannt";
+		d.team = 0;
+		d.country = 0;
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT * FROM DRIVER WHERE  WEIGHT >= (SELECT MAX(WEIGHT) FROM DRIVER)");
+	        ResultSet rs = stmt.executeQuery();
+	        rs.first();
+	        
+	        // Mapping
+	     // Mapping
+	        d.id = rs.getInt("ID");
+			d.weightInKg = rs.getInt("WEIGHT");
+			d.dob = rs.getDate("DOB").toLocalDate();
+			d.fName = rs.getString("FORNAME");
+			d.lName = rs.getString("LASTNAME");
+			d.team = rs.getInt("FK_Team_ID");
+			d.country = rs.getInt("FK_Country_ID");
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("Could not find heaviest Driver");
+		}     
+		
+		return d;
+	}
+	
 
 }
