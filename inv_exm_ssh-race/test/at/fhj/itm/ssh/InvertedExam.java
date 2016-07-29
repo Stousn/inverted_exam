@@ -2,6 +2,7 @@ package at.fhj.itm.ssh;
 
 import static org.junit.Assert.*;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,11 +13,12 @@ import at.fhj.itm.ssh.utils.SqlUtils;
 public class InvertedExam {
 	
 	DriverDAO driverDao;
-	
+	TrackDAO trackDao;
 
 	@Before
 	public void setUp() throws Exception {
 		driverDao = new DriverDAO();
+		trackDao = new TrackDAO();
 	}
 
 	@Test
@@ -49,6 +51,15 @@ public class InvertedExam {
 		}
 	
 		assertEquals(heaviestDriver.weightInKg, 86);
+		
+	}
+	
+	@Test
+	public void aufgabe2(){
+		
+	}
+	
+	public void aufgabe3(){
 		
 	}
 	
