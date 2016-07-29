@@ -142,4 +142,34 @@ public class CountryDAO extends GenericSqlDAO<Country, Integer> {
 		return countryList;
 	}
 
+	public Country readbyName(String name) {
+		PreparedStatement stmt;
+		Country c = new Country();
+		
+		c.id = -1;
+		c.code = "unknown code";
+		c.name = "unknown name";
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT * FROM COUNTRY WHERE NAME = ?");
+			stmt.setString(1, name);
+	        ResultSet rs = stmt.executeQuery();
+	        rs.first();
+	        
+	        // Mapping
+	        c.id = rs.getInt("ID");
+			c.code = rs.getString("CODE");
+			c.name = rs.getString("NAME"); 
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("Could not read Country (" + name +")");
+		}     
+		
+		return c;
+	}
+	
+	
 }

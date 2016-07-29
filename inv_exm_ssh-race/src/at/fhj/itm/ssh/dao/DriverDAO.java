@@ -19,7 +19,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		PreparedStatement stmt;
 		try 
 		{
-			stmt = connection.prepareStatement("INSERT INTO DRIVER (FORNAME, LASTNAME, DOB, WEIGHT, FK_Country_ID, FK_Team_ID) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			stmt = connection.prepareStatement("INSERT INTO DRIVER (FORENAME, LASTNAME, DOB, WEIGHT, FK_Country_ID, FK_Team_ID) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1,newInstance.fName);
 			stmt.setString(2,newInstance.lName);
 			stmt.setDate(3,Date.valueOf(newInstance.dob));
@@ -64,7 +64,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 	        d.id = rs.getInt("ID");
 			d.weightInKg = rs.getInt("WEIGHT");
 			d.dob = rs.getDate("DOB").toLocalDate();
-			d.fName = rs.getString("FORNAME");
+			d.fName = rs.getString("FORENAME");
 			d.lName = rs.getString("LASTNAME");
 			d.team = rs.getInt("FK_Team_ID");
 			d.country = rs.getInt("FK_Country_ID");
@@ -83,7 +83,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		PreparedStatement stmt;
 		try 
 		{
-			stmt = connection.prepareStatement("UPDATE DRIVER SET FORNAME = ?, LASTNAME = ?, DOB = ?, WEIGHT = ?, FK_Country_ID = ?, FK_Team_ID = ? where ID = ?");
+			stmt = connection.prepareStatement("UPDATE DRIVER SET FORENAME = ?, LASTNAME = ?, DOB = ?, WEIGHT = ?, FK_Country_ID = ?, FK_Team_ID = ? where ID = ?");
 			stmt.setString(1,transientObject.fName);
 			stmt.setString(2,transientObject.lName);
 			stmt.setDate(3,Date.valueOf(transientObject.dob));
@@ -146,7 +146,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 				d.id = rs.getInt("ID");
 				d.weightInKg = rs.getInt("WEIGHT");
 				d.dob = rs.getDate("DOB").toLocalDate();
-				d.fName = rs.getString("FORNAME");
+				d.fName = rs.getString("FORENAME");
 				d.lName = rs.getString("LASTNAME");
 				d.team = rs.getInt("FK_Team_ID");
 				d.country = rs.getInt("FK_Country_ID");
@@ -164,19 +164,19 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		return driverList;
 	}
 	
-	public String readForname(Integer id) {
+	public String readForename(Integer id) {
 		PreparedStatement stmt;
 		String forename = "unbekannt";
 		
 		try 
 		{
-			stmt = connection.prepareStatement("SELECT FORNAME FROM DRIVER WHERE ID = ?");
+			stmt = connection.prepareStatement("SELECT FORENAME FROM DRIVER WHERE ID = ?");
 			stmt.setInt(1, id);
 	        ResultSet rs = stmt.executeQuery();
 	        rs.first();
 	        
 	        // Mapping
-			forename = rs.getString("FORNAME");
+			forename = rs.getString("FORENAME");
 		} 
 		catch (SQLException e) 
 		{
@@ -301,7 +301,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 	        d.id = rs.getInt("ID");
 			d.weightInKg = rs.getInt("WEIGHT");
 			d.dob = rs.getDate("DOB").toLocalDate();
-			d.fName = rs.getString("FORNAME");
+			d.fName = rs.getString("FORENAME");
 			d.lName = rs.getString("LASTNAME");
 			d.team = rs.getInt("FK_Team_ID");
 			d.country = rs.getInt("FK_Country_ID");
@@ -337,7 +337,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 	        d.id = rs.getInt("ID");
 			d.weightInKg = rs.getInt("WEIGHT");
 			d.dob = rs.getDate("DOB").toLocalDate();
-			d.fName = rs.getString("FORNAME");
+			d.fName = rs.getString("FORENAME");
 			d.lName = rs.getString("LASTNAME");
 			d.team = rs.getInt("FK_Team_ID");
 			d.country = rs.getInt("FK_Country_ID");
@@ -351,5 +351,4 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		return d;
 	}
 	
-
 }
