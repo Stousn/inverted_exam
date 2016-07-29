@@ -256,6 +256,29 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		return weight;
 	}
 	
+	public int readTeam(Integer id) {
+		PreparedStatement stmt;
+		int team = 0;
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT FK_Team_ID FROM DRIVER WHERE ID = ?");
+			stmt.setInt(1, id);
+	        ResultSet rs = stmt.executeQuery();
+	        rs.first();
+	        
+	        // Mapping
+			team = rs.getInt("FK_Team_ID");
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("Could not read Driver (" + id +")");
+		}     
+		
+		return team;
+	}
+	
 	public Driver readHeaviest() {
 		PreparedStatement stmt;
 		Driver d = new Driver();
@@ -274,7 +297,6 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 	        ResultSet rs = stmt.executeQuery();
 	        rs.first();
 	        
-	        // Mapping
 	     // Mapping
 	        d.id = rs.getInt("ID");
 			d.weightInKg = rs.getInt("WEIGHT");
@@ -288,6 +310,42 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		{
 			e.printStackTrace();
 			System.err.println("Could not find heaviest Driver");
+		}     
+		
+		return d;
+	}
+	
+	public Driver readLightest() {
+		PreparedStatement stmt;
+		Driver d = new Driver();
+		
+		d.id = -1;
+		d.weightInKg = -1;
+		d.dob = null;
+		d.fName = "Unbekannt";
+		d.lName = "Unbekannt";
+		d.team = 0;
+		d.country = 0;
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT * FROM DRIVER WHERE  WEIGHT <= (SELECT MIN(WEIGHT) FROM DRIVER)");
+	        ResultSet rs = stmt.executeQuery();
+	        rs.first();
+	        
+	     // Mapping
+	        d.id = rs.getInt("ID");
+			d.weightInKg = rs.getInt("WEIGHT");
+			d.dob = rs.getDate("DOB").toLocalDate();
+			d.fName = rs.getString("FORNAME");
+			d.lName = rs.getString("LASTNAME");
+			d.team = rs.getInt("FK_Team_ID");
+			d.country = rs.getInt("FK_Country_ID");
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("Could not find lightest Driver");
 		}     
 		
 		return d;

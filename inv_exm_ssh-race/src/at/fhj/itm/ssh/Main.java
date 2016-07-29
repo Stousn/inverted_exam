@@ -45,12 +45,14 @@ public class Main {
 			d.lName = ddao.readLastname(i);
 			d.dob = ddao.readDOB(i);
 			d.weightInKg = ddao.readWeight(i);
+			d.team = ddao.readTeam(i);
 			
 			d2.id = ddao.read(i-1).id;
 			d2.fName = ddao.readForname(i-1);
 			d2.lName = ddao.readLastname(i-1);
 			d2.dob = ddao.readDOB(i-1);
 			d2.weightInKg = ddao.readWeight(i-1);
+			d2.team = ddao.readTeam(i);
 			
 			if(d.weightInKg>d2.weightInKg){
 				if(d.weightInKg>heaviestDriver.weightInKg){
