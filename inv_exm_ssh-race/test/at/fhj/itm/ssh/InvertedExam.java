@@ -60,7 +60,7 @@ public class InvertedExam {
 	
 	@Test
 	public void aufgabe2_heli(){
-		int count = countryDao.getMostTeamsCountPerCountryRIGHT().get(2);
+		int count = countryDao.getCountryWithMostTeamsRIGHT().get(2);
 		assertEquals(count,8);
 	}
 	
