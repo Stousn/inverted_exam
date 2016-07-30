@@ -57,8 +57,7 @@ public class InvertedExam {
 	}
 	
 	@Test
-	public void testTeamWithMostDrivers(){
-		assertEquals(teamDao.readTeamWithMostDriversRIGHT().id, 1);
+	public void aufgabe2_heli(){
 		
 	}
 	
