@@ -14,14 +14,16 @@ public class InvertedExam {
 	
 	DriverDAO driverDao;
 	TrackDAO trackDao;
+	TeamDAO teamDao;
 
 	@Before
 	public void setUp() throws Exception {
 		driverDao = new DriverDAO();
 		trackDao = new TrackDAO();
+		teamDao = new TeamDAO();
 	}
 
-	@Test
+	//@Test
 	public void getHeaviestDriver(){
 		
 		int max = SqlUtils.getMaxInt("DRIVER", "ID");
@@ -55,7 +57,8 @@ public class InvertedExam {
 	}
 	
 	@Test
-	public void aufgabe2(){
+	public void testTeamWithMostDrivers(){
+		assertEquals(teamDao.readTeamWithMostDriversRIGHT().id, 1);
 		
 	}
 	

@@ -144,4 +144,66 @@ public class TeamDAO extends GenericSqlDAO<Team, Integer> {
 		
 		return teamList;
 	}
+	
+	public Team readTeamWithMostDriversRIGHT()
+	{
+		Team t = new Team();
+		
+		t.id = -1;
+		t.code = "unknown code";
+		t.name = "unknown name";
+		t.brand = -1;
+		
+		PreparedStatement stmt;
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT COUNT(FK_TEAM_ID) AS 'COUNT', FK_TEAM_ID AS 'ID' FROM DRIVER GROUP BY FK_TEAM_ID");
+			ResultSet rs = stmt.executeQuery();
+	        
+	        rs.next();
+
+		    int id = rs.getInt("ID");
+		    System.out.println(id);
+		    t = this.read(id);
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("An error occured reading Teams from Database");
+		}     
+		
+		return t;
+	}
+	
+	public Team readTeamWithMostDriversWRONG()
+	{
+		Team t = new Team();
+		
+		t.id = -1;
+		t.code = "unknown code";
+		t.name = "unknown name";
+		t.brand = -1;
+		
+		PreparedStatement stmt;
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT COUNT(FK_TEAM_ID) AS 'COUNT', FK_TEAM_ID AS 'ID' FROM DRIVER GROUP BY FK_TEAM_ID");
+			ResultSet rs = stmt.executeQuery();
+	        
+	        rs.next();
+
+		    int id = rs.getInt("ID");
+		    System.out.println(id);
+		    t = this.read(id);
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("An error occured reading Teams from Database");
+		}     
+		
+		return t;
+	}
 }
