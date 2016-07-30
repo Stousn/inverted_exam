@@ -15,12 +15,14 @@ public class InvertedExam {
 	DriverDAO driverDao;
 	TrackDAO trackDao;
 	TeamDAO teamDao;
+	CountryDAO countryDao;
 
 	@Before
 	public void setUp() throws Exception {
 		driverDao = new DriverDAO();
 		trackDao = new TrackDAO();
 		teamDao = new TeamDAO();
+		countryDao = new CountryDAO();
 	}
 
 	//@Test
@@ -58,7 +60,8 @@ public class InvertedExam {
 	
 	@Test
 	public void aufgabe2_heli(){
-		
+		int count = countryDao.getMostTeamsCountPerCountryRIGHT().get(2);
+		assertEquals(count,8);
 	}
 	
 	public void aufgabe3(){

@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.mysql.jdbc.Statement;
 
@@ -169,6 +171,30 @@ public class CountryDAO extends GenericSqlDAO<Country, Integer> {
 		}     
 		
 		return c;
+	}
+	
+	public Map<Integer, Integer> getCountryWithMostTeamsRIGHT() {
+		PreparedStatement stmt;
+		Map<Integer, Integer> countryList = new HashMap<>();
+		
+		
+		try 
+		{
+			stmt = connection.prepareStatement("SELECT C.ID, C.NAME AS 'COUNTRY', COUNT(DISTINCT (D.FK_TEAM_ID)) AS 'COUNT' FROM DRIVER D JOIN COUNTRY C ON D.FK_Country_ID = C.ID GROUP BY C.NAME ORDER BY COUNT DESC");
+	        ResultSet rs = stmt.executeQuery();
+	        rs.next();
+	        int id = rs.getInt("ID");
+	        int count = rs.getInt("COUNT");
+	        countryList.put(id, count);
+	         
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.err.println("Could not read TeamCountByCountry");
+		}     
+		
+		return countryList;
 	}
 	
 	
