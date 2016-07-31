@@ -10,62 +10,47 @@ import org.junit.Test;
 
 import at.fhj.itm.ssh.dao.CountryDAO;
 import at.fhj.itm.ssh.dao.DriverDAO;
-import at.fhj.itm.ssh.dao.TeamDAO;
-import at.fhj.itm.ssh.dao.TrackDAO;
 import at.fhj.itm.ssh.model.Driver;
 
 public class InvertedExam {
 	
 	DriverDAO driverDao;
-	TrackDAO trackDao;
-	TeamDAO teamDao;
 	CountryDAO countryDao;
 
 	@Before
 	public void setUp() throws Exception {
 		driverDao = new DriverDAO();
-		trackDao = new TrackDAO();
-		teamDao = new TeamDAO();
 		countryDao = new CountryDAO();
+	}
+	
+	@Test
+	public void aufgabe1(){
+		//Change the method 'getHeaviestDriver' in the DriverDAO-Class
+		//to pass this test in under 1 second
+		//(7.671s vs. 0.024s in our tests)
+		Driver d = driverDao.getHeaviestDriver();
+		assertEquals(d.weightInKg, 200);
+		
 	}
 
 	@Test
-	public void aufgabe1_heli_right(){
-		Driver d = driverDao.getHeaviestDriverRIGHT();
-		assertEquals(d.weightInKg, 200);
-	};
-	
-	@Test
-	public void aufgabe1_heli_wrong(){
-		Driver d = driverDao.getHeaviestDriverWRONG();
-		assertEquals(d.weightInKg, 200);
-		
-	}
-	
-	@Test
-	public void aufgabe2_heli_right(){
-		int count = countryDao.getCountryWithMostTeamsRIGHT().get("United Arab Emirates");
-		assertEquals(count,8);
-	}
-	@Test
-	public void aufabe2_heli_wrong(){
-		int count = countryDao.getCountryWithMostTeamsWrong().get("United Arab Emirates");
+	public void aufabe2(){
+		//Change the method 'getCountryWithMostTeams' in the CountryDAO-Class
+		//to pass this test in under 1 second
+		//(176.216s vs. 0.017s in our tests)
+		int count = countryDao.getCountryWithMostTeams().get("United Arab Emirates");
 		assertEquals(count, 8);
 		
 	}
-	@Test
-	public void aufgabe3_heli_wrong(){
-		List<Driver> ld = new ArrayList<>();
-		ld = driverDao.getDriverFromCountryWRONG("Austria");
-		assertEquals(ld.size(), 20);
-	}
 	
 	@Test
-	public void aufgabe3_heli_right(){
+	public void aufgabe3(){
+		//Change the method 'getDriversFromCountry' in the DriverDAO-Class
+		//to pass this test in unter 1 second
+		//(5.448s vs. 0.011s in our tests)
 		List<Driver> ld = new ArrayList<>();
-		ld = driverDao.getDriverFromCountryRIGHT("Austria");
+		ld = driverDao.getDriversFromCountry("Austria");
 		assertEquals(ld.size(), 20);
 	}
-	
-	
+		
 }

@@ -175,31 +175,7 @@ public class CountryDAO extends GenericSqlDAO<Country, Integer> {
 		return c;
 	}
 	
-	public Map<String, Integer> getCountryWithMostTeamsRIGHT() {
-		PreparedStatement stmt;
-		Map<String, Integer> countryList = new HashMap<>();
-		
-		
-		try 
-		{
-			stmt = connection.prepareStatement("SELECT C.ID, C.NAME AS 'COUNTRY', COUNT(DISTINCT (D.FK_TEAM_ID)) AS 'COUNT' FROM DRIVER D JOIN COUNTRY C ON D.FK_Country_ID = C.ID GROUP BY C.NAME ORDER BY COUNT DESC");
-	        ResultSet rs = stmt.executeQuery();
-	        rs.next();
-	        String name = rs.getString("COUNTRY");
-	        int count = rs.getInt("COUNT");
-	        countryList.put(name, count);
-	         
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-			System.err.println("Could not read TeamCountByCountry");
-		}     
-		
-		return countryList;
-	}
-	
-	public Map<String, Integer> getCountryWithMostTeamsWrong(){
+	public Map<String, Integer> getCountryWithMostTeams(){
 		Map<String, Integer> teamsPerCountry = new HashMap<>();
 		Hashtable<String, Integer> teams = new Hashtable<>();
 		DriverDAO driverDao = new DriverDAO();

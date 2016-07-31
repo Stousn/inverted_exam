@@ -165,44 +165,7 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 	}
 	
 	
-	public Driver getHeaviestDriverRIGHT() {
-		PreparedStatement stmt;
-		Driver d = new Driver();
-		
-		d.id = -1;
-		d.weightInKg = -1;
-		d.dob = null;
-		d.fName = "Unbekannt";
-		d.lName = "Unbekannt";
-		d.team = 0;
-		d.country = 0;
-		
-		try 
-		{
-			//stmt = connection.prepareStatement("SELECT * FROM DRIVER WHERE  WEIGHT = (SELECT MAX(WEIGHT) FROM DRIVER)");
-			stmt = connection.prepareStatement("SELECT * FROM DRIVER ORDER BY WEIGHT DESC LIMIT 1");
-	        ResultSet rs = stmt.executeQuery();
-	        rs.first();
-	        
-	     // Mapping
-	        d.id = rs.getInt("ID");
-			d.weightInKg = rs.getInt("WEIGHT");
-			d.dob = rs.getDate("DOB").toLocalDate();
-			d.fName = rs.getString("FORENAME");
-			d.lName = rs.getString("LASTNAME");
-			d.team = rs.getInt("FK_Team_ID");
-			d.country = rs.getInt("FK_Country_ID");
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-			System.err.println("Could not find heaviest Driver");
-		}     
-		
-		return d;
-	}
-	
-	public Driver getHeaviestDriverWRONG(){
+	public Driver getHeaviestDriver(){
 		
 		int max = SqlUtils.getMaxInt("DRIVER", "ID");
 		Driver heaviestDriver = this.read(1);
@@ -234,44 +197,9 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		
 		return heaviestDriver;
 	}
+
 	
-	public Driver getLightestDriverRight() {
-		PreparedStatement stmt;
-		Driver d = new Driver();
-		
-		d.id = -1;
-		d.weightInKg = -1;
-		d.dob = null;
-		d.fName = "Unbekannt";
-		d.lName = "Unbekannt";
-		d.team = 0;
-		d.country = 0;
-		
-		try 
-		{
-			stmt = connection.prepareStatement("SELECT * FROM DRIVER WHERE  WEIGHT <= (SELECT MIN(WEIGHT) FROM DRIVER)");
-	        ResultSet rs = stmt.executeQuery();
-	        rs.first();
-	        
-	     // Mapping
-	        d.id = rs.getInt("ID");
-			d.weightInKg = rs.getInt("WEIGHT");
-			d.dob = rs.getDate("DOB").toLocalDate();
-			d.fName = rs.getString("FORENAME");
-			d.lName = rs.getString("LASTNAME");
-			d.team = rs.getInt("FK_Team_ID");
-			d.country = rs.getInt("FK_Country_ID");
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-			System.err.println("Could not find lightest Driver");
-		}     
-		
-		return d;
-	}
-	
-	public List<Driver> getDriverFromCountryWRONG(String countryName){
+	public List<Driver> getDriversFromCountry(String countryName){
 		PreparedStatement stmt;
 		List<Driver> driversFromCountry = new ArrayList<>();
 		try{
@@ -291,27 +219,6 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		
 		return driversFromCountry;
 	}
-	
-	public List<Driver> getDriverFromCountryRIGHT(String countryName){
-		PreparedStatement stmt;
-		List<Driver> driversFromCountry = new ArrayList<>();
-		try{
-			stmt = connection.prepareStatement("SELECT * FROM DRIVER D JOIN COUNTRY C ON D.FK_COUNTRY_ID = C.ID WHERE C.NAME =  ?");
-			stmt.setString(1, countryName);
-			ResultSet rs = stmt.executeQuery();
-			while(rs.next()){
-				Driver d = new Driver(rs.getInt(1), rs.getInt(5), rs.getDate("DOB").toLocalDate(), rs.getString("FORENAME"), rs.getString("LASTNAME"), rs.getInt("FK_COUNTRY_ID"), rs.getInt("FK_TEAM_ID"));
-				driversFromCountry.add(d);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.err.println("Could not get Driver from " + countryName);
-		}
 		
-		return driversFromCountry;
-	}
-	
-	
 	
 }
