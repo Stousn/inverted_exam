@@ -179,7 +179,8 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		
 		try 
 		{
-			stmt = connection.prepareStatement("SELECT * FROM DRIVER WHERE  WEIGHT >= (SELECT MAX(WEIGHT) FROM DRIVER)");
+			//stmt = connection.prepareStatement("SELECT * FROM DRIVER WHERE  WEIGHT = (SELECT MAX(WEIGHT) FROM DRIVER)");
+			stmt = connection.prepareStatement("SELECT * FROM DRIVER ORDER BY WEIGHT DESC LIMIT 1");
 	        ResultSet rs = stmt.executeQuery();
 	        rs.first();
 	        
@@ -268,6 +269,47 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		}     
 		
 		return d;
+	}
+	
+	public List<Driver> getDriverFromCountryWRONG(String countryName){
+		PreparedStatement stmt;
+		List<Driver> driversFromCountry = new ArrayList<>();
+		try{
+			stmt = connection.prepareStatement("SELECT * FROM DRIVER CROSS JOIN COUNTRY");
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				if(rs.getInt(6) == rs.getInt(8) && rs.getString("NAME").equals(countryName)){
+					Driver d = new Driver(rs.getInt(1), rs.getInt(5), rs.getDate("DOB").toLocalDate(), rs.getString("FORENAME"), rs.getString("LASTNAME"), rs.getInt("FK_COUNTRY_ID"), rs.getInt("FK_TEAM_ID"));
+					driversFromCountry.add(d);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Could not get Driver from " + countryName);
+		}
+		
+		return driversFromCountry;
+	}
+	
+	public List<Driver> getDriverFromCountryRIGHT(String countryName){
+		PreparedStatement stmt;
+		List<Driver> driversFromCountry = new ArrayList<>();
+		try{
+			stmt = connection.prepareStatement("SELECT * FROM DRIVER D JOIN COUNTRY C ON D.FK_COUNTRY_ID = C.ID WHERE C.NAME =  ?");
+			stmt.setString(1, countryName);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				Driver d = new Driver(rs.getInt(1), rs.getInt(5), rs.getDate("DOB").toLocalDate(), rs.getString("FORENAME"), rs.getString("LASTNAME"), rs.getInt("FK_COUNTRY_ID"), rs.getInt("FK_TEAM_ID"));
+				driversFromCountry.add(d);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Could not get Driver from " + countryName);
+		}
+		
+		return driversFromCountry;
 	}
 	
 	

@@ -2,6 +2,9 @@ package at.fhj.itm.ssh;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,33 +29,42 @@ public class InvertedExam {
 		countryDao = new CountryDAO();
 	}
 
-	@Test
+	//@Test
 	public void aufgabe1_heli_right(){
 		Driver d = driverDao.getHeaviestDriverRIGHT();
 		assertEquals(d.weightInKg, 200);
 	};
 	
-	@Test
+	//@Test
 	public void aufgabe1_heli_wrong(){
 		Driver d = driverDao.getHeaviestDriverWRONG();
 		assertEquals(d.weightInKg, 200);
 		
 	}
 	
-	@Test
+	//@Test
 	public void aufgabe2_heli_right(){
 		int count = countryDao.getCountryWithMostTeamsRIGHT().get("United Arab Emirates");
 		assertEquals(count,8);
 	}
-	@Test
+	//@Test
 	public void aufabe2_heli_wrong(){
 		int count = countryDao.getCountryWithMostTeamsWrong().get("United Arab Emirates");
 		assertEquals(count, 8);
 		
 	}
+	@Test
+	public void aufgabe3_heli_wrong(){
+		List<Driver> ld = new ArrayList<>();
+		ld = driverDao.getDriverFromCountryWRONG("Austria");
+		assertEquals(ld.size(), 20);
+	}
 	
-	public void aufgabe3(){
-		
+	@Test
+	public void aufgabe3_heli_right(){
+		List<Driver> ld = new ArrayList<>();
+		ld = driverDao.getDriverFromCountryRIGHT("Austria");
+		assertEquals(ld.size(), 20);
 	}
 	
 	

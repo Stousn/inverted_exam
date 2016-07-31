@@ -44,7 +44,6 @@ public class ConnectionFactory {
 		//Test if DB-Driver exists
 		try {
 			Class.forName(jdbc_driver);
-			System.out.println("Driver found");
 		} catch (ClassNotFoundException e){
 			e.printStackTrace();
 			System.err.println("jdbc.driver can't be loaded");
