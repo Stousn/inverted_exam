@@ -29,25 +29,25 @@ public class InvertedExam {
 		countryDao = new CountryDAO();
 	}
 
-	//@Test
+	@Test
 	public void aufgabe1_heli_right(){
 		Driver d = driverDao.getHeaviestDriverRIGHT();
 		assertEquals(d.weightInKg, 200);
 	};
 	
-	//@Test
+	@Test
 	public void aufgabe1_heli_wrong(){
 		Driver d = driverDao.getHeaviestDriverWRONG();
 		assertEquals(d.weightInKg, 200);
 		
 	}
 	
-	//@Test
+	@Test
 	public void aufgabe2_heli_right(){
 		int count = countryDao.getCountryWithMostTeamsRIGHT().get("United Arab Emirates");
 		assertEquals(count,8);
 	}
-	//@Test
+	@Test
 	public void aufabe2_heli_wrong(){
 		int count = countryDao.getCountryWithMostTeamsWrong().get("United Arab Emirates");
 		assertEquals(count, 8);
