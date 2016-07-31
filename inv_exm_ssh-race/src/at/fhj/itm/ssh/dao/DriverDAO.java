@@ -178,7 +178,6 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		
 		try 
 		{
-			//stmt = connection.prepareStatement("SELECT * FROM DRIVER WHERE  WEIGHT = (SELECT MAX(WEIGHT) FROM DRIVER)");
 			stmt = connection.prepareStatement("SELECT * FROM DRIVER ORDER BY WEIGHT DESC LIMIT 1");
 	        ResultSet rs = stmt.executeQuery();
 	        rs.first();
