@@ -1,14 +1,15 @@
 package at.fhj.itm.ssh;
 
-import static org.junit.Assert.*;
-import java.util.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import at.fhj.itm.ssh.dao.*;
-import at.fhj.itm.ssh.model.*;
-import at.fhj.itm.ssh.utils.SqlUtils;
+import at.fhj.itm.ssh.dao.CountryDAO;
+import at.fhj.itm.ssh.dao.DriverDAO;
+import at.fhj.itm.ssh.dao.TeamDAO;
+import at.fhj.itm.ssh.dao.TrackDAO;
+import at.fhj.itm.ssh.model.Driver;
 
 public class InvertedExamSolution {
 
@@ -31,7 +32,7 @@ public class InvertedExamSolution {
 	@Test
 	public void getHeaviestDriver() {
 		Driver heaviest = new Driver();
-		heaviest = driverDao.readHeaviest();
+		heaviest = driverDao.getHeaviestDriverRIGHT();
 
 		assertEquals(heaviest.weightInKg, 86);
 	}
@@ -46,36 +47,7 @@ public class InvertedExamSolution {
 		 * */
 
 //		List<Driver> drivers = new ArrayList<Driver>();
-		HashMap teamsperland = new HashMap();
-		Hashtable teams = new Hashtable();
-
-//		drivers = driverDao.readAll();
-
-		int maxcountry = SqlUtils.getMaxInt("COUNTRY", "ID");
-		int maxdriver = SqlUtils.getMaxInt("DRIVER", "ID");
-
-		for(int i = 1; i <= maxcountry; i++){
-			//			for (Driver driver : drivers) {
-			//				if(driver.country == i){
-			//					teams.put(teamDao.read(driver.team).name, 1);
-			//				}
-			//			}	
-			for (int j = 1; j <= maxdriver; j++){
-				if(driverDao.read(j).country == i){
-					teams.put(teamDao.read(driverDao.read(j).team).name,1);
-				}
-			}
-
-			teamsperland.put(countryDao.read(i).name, teams.size());
-			teams.clear();
-		}
-
-
-		System.out.println(teamsperland.get("United Arab Emirates"));
-
-
-		assertEquals(teamsperland.get("United Arab Emirates"), 8);
-
+		
 	}
 
 

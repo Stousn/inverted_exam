@@ -1,14 +1,15 @@
 package at.fhj.itm.ssh;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import at.fhj.itm.ssh.dao.*;
-import at.fhj.itm.ssh.model.*;
-import at.fhj.itm.ssh.utils.SqlUtils;
+import at.fhj.itm.ssh.dao.CountryDAO;
+import at.fhj.itm.ssh.dao.DriverDAO;
+import at.fhj.itm.ssh.dao.TeamDAO;
+import at.fhj.itm.ssh.dao.TrackDAO;
+import at.fhj.itm.ssh.model.Driver;
 
 public class InvertedExam {
 	
@@ -25,43 +26,29 @@ public class InvertedExam {
 		countryDao = new CountryDAO();
 	}
 
-	//@Test
-	public void getHeaviestDriver(){
-		
-		int max = SqlUtils.getMaxInt("DRIVER", "ID");
-		Driver heaviestDriver = driverDao.read(1);
-		for(int i=2; i<=max;i++){
-			Driver d = new Driver();
-			Driver d2 = new Driver();
-			d.id = driverDao.read(i).id;
-			d.fName = driverDao.readForename(i);
-			d.lName = driverDao.readLastname(i);
-			d.dob = driverDao.readDOB(i);
-			d.weightInKg = driverDao.readWeight(i);
-			d.team = driverDao.readTeam(i);
-			
-			d2.id = driverDao.read(i-1).id;
-			d2.fName = driverDao.readForename(i-1);
-			d2.lName = driverDao.readLastname(i-1);
-			d2.dob = driverDao.readDOB(i-1);
-			d2.weightInKg = driverDao.readWeight(i-1);
-			d2.team = driverDao.readTeam(i);
-			
-			if(d.weightInKg>d2.weightInKg){
-				if(d.weightInKg>heaviestDriver.weightInKg){
-					heaviestDriver = d;
-				}	
-			}
-		}
+	@Test
+	public void aufgabe1_heli_right(){
+		Driver d = driverDao.getHeaviestDriverRIGHT();
+		assertEquals(d.weightInKg, 200);
+	};
 	
-		assertEquals(heaviestDriver.weightInKg, 86);
+	@Test
+	public void aufgabe1_heli_wrong(){
+		Driver d = driverDao.getHeaviestDriverWRONG();
+		assertEquals(d.weightInKg, 200);
 		
 	}
 	
 	@Test
-	public void aufgabe2_heli(){
-		int count = countryDao.getCountryWithMostTeamsRIGHT().get(2);
+	public void aufgabe2_heli_right(){
+		int count = countryDao.getCountryWithMostTeamsRIGHT().get("United Arab Emirates");
 		assertEquals(count,8);
+	}
+	@Test
+	public void aufabe2_heli_wrong(){
+		int count = countryDao.getCountryWithMostTeamsWrong().get("United Arab Emirates");
+		assertEquals(count, 8);
+		
 	}
 	
 	public void aufgabe3(){

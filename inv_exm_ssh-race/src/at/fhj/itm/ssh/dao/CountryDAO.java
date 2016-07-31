@@ -5,12 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
 import com.mysql.jdbc.Statement;
 
 import at.fhj.itm.ssh.model.Country;
+import at.fhj.itm.ssh.utils.SqlUtils;
 
 public class CountryDAO extends GenericSqlDAO<Country, Integer> {
 
@@ -173,9 +175,9 @@ public class CountryDAO extends GenericSqlDAO<Country, Integer> {
 		return c;
 	}
 	
-	public Map<Integer, Integer> getCountryWithMostTeamsRIGHT() {
+	public Map<String, Integer> getCountryWithMostTeamsRIGHT() {
 		PreparedStatement stmt;
-		Map<Integer, Integer> countryList = new HashMap<>();
+		Map<String, Integer> countryList = new HashMap<>();
 		
 		
 		try 
@@ -183,9 +185,9 @@ public class CountryDAO extends GenericSqlDAO<Country, Integer> {
 			stmt = connection.prepareStatement("SELECT C.ID, C.NAME AS 'COUNTRY', COUNT(DISTINCT (D.FK_TEAM_ID)) AS 'COUNT' FROM DRIVER D JOIN COUNTRY C ON D.FK_Country_ID = C.ID GROUP BY C.NAME ORDER BY COUNT DESC");
 	        ResultSet rs = stmt.executeQuery();
 	        rs.next();
-	        int id = rs.getInt("ID");
+	        String name = rs.getString("COUNTRY");
 	        int count = rs.getInt("COUNT");
-	        countryList.put(id, count);
+	        countryList.put(name, count);
 	         
 		} 
 		catch (SQLException e) 
@@ -195,6 +197,31 @@ public class CountryDAO extends GenericSqlDAO<Country, Integer> {
 		}     
 		
 		return countryList;
+	}
+	
+	public Map<String, Integer> getCountryWithMostTeamsWrong(){
+		Map<String, Integer> teamsPerCountry = new HashMap<>();
+		Hashtable<String, Integer> teams = new Hashtable<>();
+		DriverDAO driverDao = new DriverDAO();
+		TeamDAO teamDao = new TeamDAO();
+
+		int maxcountry = SqlUtils.getMaxInt("COUNTRY", "ID");
+		int maxdriver = SqlUtils.getMaxInt("DRIVER", "ID");
+
+		for(int i = 1; i <= maxcountry; i++){
+
+			for (int j = 1; j <= maxdriver; j++){
+				if(driverDao.read(j).country == i){
+					teams.put(teamDao.read(driverDao.read(j).team).name,1);
+				}
+			}
+
+			teamsPerCountry.put(this.read(i).name, teams.size());
+			teams.clear();
+		}
+
+		return teamsPerCountry;
+
 	}
 	
 	

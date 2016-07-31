@@ -4,13 +4,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
 import at.fhj.itm.ssh.model.Driver;
+import at.fhj.itm.ssh.utils.SqlUtils;
 
 public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 
@@ -164,122 +164,8 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		return driverList;
 	}
 	
-	public String readForename(Integer id) {
-		PreparedStatement stmt;
-		String forename = "unbekannt";
-		
-		try 
-		{
-			stmt = connection.prepareStatement("SELECT FORENAME FROM DRIVER WHERE ID = ?");
-			stmt.setInt(1, id);
-	        ResultSet rs = stmt.executeQuery();
-	        rs.first();
-	        
-	        // Mapping
-			forename = rs.getString("FORENAME");
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-			System.err.println("Could not read Driver (" + id +")");
-		}     
-		
-		return forename;
-	}
 	
-	public String readLastname(Integer id) {
-		PreparedStatement stmt;
-		String lastname = "unbekannt";
-		
-		try 
-		{
-			stmt = connection.prepareStatement("SELECT LASTNAME FROM DRIVER WHERE ID = ?");
-			stmt.setInt(1, id);
-	        ResultSet rs = stmt.executeQuery();
-	        rs.first();
-	        
-	        // Mapping
-			lastname = rs.getString("LASTNAME");
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-			System.err.println("Could not read Driver (" + id +")");
-		}     
-		
-		return lastname;
-	}
-	
-	public LocalDate readDOB(Integer id) {
-		PreparedStatement stmt;
-		LocalDate dob = null;
-		
-		try 
-		{
-			stmt = connection.prepareStatement("SELECT DOB FROM DRIVER WHERE ID = ?");
-			stmt.setInt(1, id);
-	        ResultSet rs = stmt.executeQuery();
-	        rs.first();
-	        
-	        // Mapping
-			dob = rs.getDate("DOB").toLocalDate();
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-			System.err.println("Could not read Driver (" + id +")");
-		}     
-		
-		return dob;
-	}
-	
-	public int readWeight(Integer id) {
-		PreparedStatement stmt;
-		int weight = 0;
-		
-		try 
-		{
-			stmt = connection.prepareStatement("SELECT WEIGHT FROM DRIVER WHERE ID = ?");
-			stmt.setInt(1, id);
-	        ResultSet rs = stmt.executeQuery();
-	        rs.first();
-	        
-	        // Mapping
-			weight = rs.getInt("WEIGHT");
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-			System.err.println("Could not read Driver (" + id +")");
-		}     
-		
-		return weight;
-	}
-	
-	public int readTeam(Integer id) {
-		PreparedStatement stmt;
-		int team = 0;
-		
-		try 
-		{
-			stmt = connection.prepareStatement("SELECT FK_Team_ID FROM DRIVER WHERE ID = ?");
-			stmt.setInt(1, id);
-	        ResultSet rs = stmt.executeQuery();
-	        rs.first();
-	        
-	        // Mapping
-			team = rs.getInt("FK_Team_ID");
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-			System.err.println("Could not read Driver (" + id +")");
-		}     
-		
-		return team;
-	}
-	
-	public Driver readHeaviest() {
+	public Driver getHeaviestDriverRIGHT() {
 		PreparedStatement stmt;
 		Driver d = new Driver();
 		
@@ -315,7 +201,40 @@ public class DriverDAO extends GenericSqlDAO<Driver, Integer> {
 		return d;
 	}
 	
-	public Driver readLightest() {
+	public Driver getHeaviestDriverWRONG(){
+		
+		int max = SqlUtils.getMaxInt("DRIVER", "ID");
+		Driver heaviestDriver = this.read(1);
+		//Compare every Driver
+		for(int i=2; i<=max;i++){
+			Driver d = new Driver();
+			Driver d2 = new Driver();
+			
+			d.id = this.read(i).id;
+			d.fName = this.read(i).fName;
+			d.lName = this.read(i).lName;
+			d.dob = this.read(i).dob;
+			d.weightInKg = this.read(i).weightInKg;
+			d.team = this.read(i).team;
+			
+			d2.id = this.read(i-1).id;
+			d2.fName = this.read(i-1).fName;
+			d2.lName = this.read(i-1).lName;
+			d2.dob = this.read(i-1).dob;
+			d2.weightInKg = this.read(i-1).weightInKg;
+			d2.team = this.read(i).team;
+			
+			if(d.weightInKg>d2.weightInKg){
+				if(d.weightInKg>heaviestDriver.weightInKg){
+					heaviestDriver = d;
+				}	
+			}
+		}
+		
+		return heaviestDriver;
+	}
+	
+	public Driver getLightestDriverRight() {
 		PreparedStatement stmt;
 		Driver d = new Driver();
 		
