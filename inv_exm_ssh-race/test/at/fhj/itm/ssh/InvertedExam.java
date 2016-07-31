@@ -26,7 +26,7 @@ public class InvertedExam {
 	@Test
 	public void aufgabe1(){
 		//Change the method 'getHeaviestDriver' in the DriverDAO-Class
-		//to pass this test in under 1 second
+		//to pass this test in under 0.5 seconds
 		//(7.671s vs. 0.024s in our tests)
 		Driver d = driverDao.getHeaviestDriver();
 		assertEquals(d.weightInKg, 200);
@@ -36,7 +36,7 @@ public class InvertedExam {
 	@Test
 	public void aufabe2(){
 		//Change the method 'getCountryWithMostTeams' in the CountryDAO-Class
-		//to pass this test in under 1 second
+		//to pass this test in under 0.5 seconds
 		//(176.216s vs. 0.017s in our tests)
 		int count = countryDao.getCountryWithMostTeams().get("United Arab Emirates");
 		assertEquals(count, 8);
@@ -46,7 +46,7 @@ public class InvertedExam {
 	@Test
 	public void aufgabe3(){
 		//Change the method 'getDriversFromCountry' in the DriverDAO-Class
-		//to pass this test in unter 1 second
+		//to pass this test in under 0.5 second
 		//(5.448s vs. 0.011s in our tests)
 		List<Driver> ld = new ArrayList<>();
 		ld = driverDao.getDriversFromCountry("Austria");
