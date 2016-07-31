@@ -5,14 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
 import com.mysql.jdbc.Statement;
 
 import at.fhj.itm.ssh.model.Country;
-import at.fhj.itm.ssh.utils.SqlUtils;
 
 public class CountryDAO extends GenericSqlDAO<Country, Integer> {
 
@@ -175,7 +173,7 @@ public class CountryDAO extends GenericSqlDAO<Country, Integer> {
 		return c;
 	}
 	
-	public Map<String, Integer> getCountryWithMostTeamsRIGHT() {
+	public Map<String, Integer> getCountryWithMostTeams() {
 		PreparedStatement stmt;
 		Map<String, Integer> countryList = new HashMap<>();
 		
@@ -198,32 +196,5 @@ public class CountryDAO extends GenericSqlDAO<Country, Integer> {
 		
 		return countryList;
 	}
-	
-	public Map<String, Integer> getCountryWithMostTeamsWrong(){
-		Map<String, Integer> teamsPerCountry = new HashMap<>();
-		Hashtable<String, Integer> teams = new Hashtable<>();
-		DriverDAO driverDao = new DriverDAO();
-		TeamDAO teamDao = new TeamDAO();
-
-		int maxcountry = SqlUtils.getMaxInt("COUNTRY", "ID");
-		int maxdriver = SqlUtils.getMaxInt("DRIVER", "ID");
-
-		for(int i = 1; i <= maxcountry; i++){
-
-			for (int j = 1; j <= maxdriver; j++){
-				if(driverDao.read(j).country == i){
-					teams.put(teamDao.read(driverDao.read(j).team).name,1);
-				}
-			}
-
-			teamsPerCountry.put(this.read(i).name, teams.size());
-			teams.clear();
-		}
-
-		return teamsPerCountry;
-
-	}
-	
-	
 	
 }

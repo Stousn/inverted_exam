@@ -30,40 +30,22 @@ public class InvertedExam {
 	}
 
 	@Test
-	public void aufgabe1_heli_right(){
-		Driver d = driverDao.getHeaviestDriverRIGHT();
+	public void aufgabe1(){
+		Driver d = driverDao.getHeaviestDriver();
 		assertEquals(d.weightInKg, 200);
 	};
 	
-	@Test
-	public void aufgabe1_heli_wrong(){
-		Driver d = driverDao.getHeaviestDriverWRONG();
-		assertEquals(d.weightInKg, 200);
-		
-	}
 	
 	@Test
-	public void aufgabe2_heli_right(){
-		int count = countryDao.getCountryWithMostTeamsRIGHT().get("United Arab Emirates");
+	public void aufgabe2(){
+		int count = countryDao.getCountryWithMostTeams().get("United Arab Emirates");
 		assertEquals(count,8);
 	}
-	@Test
-	public void aufabe2_heli_wrong(){
-		int count = countryDao.getCountryWithMostTeamsWrong().get("United Arab Emirates");
-		assertEquals(count, 8);
-		
-	}
-	@Test
-	public void aufgabe3_heli_wrong(){
-		List<Driver> ld = new ArrayList<>();
-		ld = driverDao.getDriverFromCountryWRONG("Austria");
-		assertEquals(ld.size(), 20);
-	}
 	
 	@Test
-	public void aufgabe3_heli_right(){
+	public void aufgabe3(){
 		List<Driver> ld = new ArrayList<>();
-		ld = driverDao.getDriverFromCountryRIGHT("Austria");
+		ld = driverDao.getDriversFromCountry("Austria");
 		assertEquals(ld.size(), 20);
 	}
 	
